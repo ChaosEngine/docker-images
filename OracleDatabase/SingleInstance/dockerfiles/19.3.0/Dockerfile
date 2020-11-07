@@ -114,8 +114,9 @@ RUN $ORACLE_BASE/oraInventory/orainstRoot.sh && \
 USER oracle
 WORKDIR /home/oracle
 
-HEALTHCHECK --interval=1m --start-period=5m \
-   CMD "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null || exit 1
+##https://github.com/oracle/docker-images/issues/1651 - disable healthchecks because for every minute one *.aud file is generated for sysdba login
+#HEALTHCHECK --interval=1m --start-period=5m \
+#   CMD "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null || exit 1
 
 # Define default command to start Oracle Database. 
 CMD exec $ORACLE_BASE/$RUN_FILE
